@@ -1,0 +1,33 @@
+.focus-in {
+  transform: translateY(-150%) !important;
+  font-size: 12px !important;
+}
+.input-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-label {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 16px;
+  pointer-events: none;
+  transition: all 0.2s;
+}
+
+.input-field {
+  width: 100%;
+  padding: 6px 16px;
+  font-size: 16px;
+  border: none;
+  border-bottom: 1px solid #999;
+  outline: none;
+  transition: all 0.2s;
+
+  &:focus {
+    border-bottom-color: #2196F3;
+  }
+}

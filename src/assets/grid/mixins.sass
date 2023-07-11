@@ -1,0 +1,64 @@
+@import "../variables"
+=make-container($padding-x: $container-padding-x)
+  width: 100%
+  padding: $padding-x
+  margin-right: auto
+  margin-left: auto
+
+=make-row($gutter: $grid-gutter)
+  display: flex
+  flex-wrap: wrap
+  flex: 1 1 auto
+  margin: - calc($gutter / 2)
+
+=media-breakpoint-up($name, $breakpoints: $grid-breakpoints)
+  $min: breakpoint-min($name, $breakpoints)
+  @if $min
+    @media (min-width: $min)
+      @content
+  @else
+    @content
+
+=make-col($size, $columns: $grid-columns)
+  flex: 0 0 percentage(calc($size / $columns))
+  // Add a `max-width` to ensure content within each column does not blow out
+  // the width of the column. Applies to IE10+ and Firefox. Chrome and Safari
+  // do not appear to require this.
+  max-width: percentage(calc($size / $columns))
+
+=make-col-offset($size, $columns: $grid-columns)
+  $num: calc($size / $columns)
+  margin-left: if($num == 0, 0, percentage($num))
+
+=make-grid-columns($columns: $grid-columns, $gutter: $grid-gutter, $breakpoints: $grid-breakpoints)
+  // Common properties for all breakpoints
+  %grid-column
+    width: 100%
+    padding: calc($gutter / 2)
+  @each $breakpoint in map-keys($breakpoints)
+    $infix: breakpoint-infix($breakpoint, $breakpoints)
+    // Allow columns to stretch full width below their breakpoints
+    @for $i from 1 through $columns
+      .col#{$infix}-#{$i}
+        @extend %grid-column
+    .col#{$infix},
+    .col#{$infix}-auto
+      @extend %grid-column
+    +media-breakpoint-up($breakpoint, $breakpoints)
+      .col#{$infix}
+        flex-basis: 0
+        flex-grow: 1
+        max-width: 100%
+      .col#{$infix}-auto
+        flex: 0 0 auto
+        width: auto
+        max-width: 100% // Reset earlier grid tiers
+      @for $i from 1 through $columns
+        .col#{$infix}-#{$i}
+          +make-col($i, $columns)
+      // `$columns - 1` because offsetting by the width of an entire row isn't possible
+      @for $i from 0 through $columns - 1
+        @if not ($infix == "" and $i == 0)
+          // Avoid emitting useless .offset-0
+          .offset#{$infix}-#{$i}
+            +make-col-offset($i, $columns)

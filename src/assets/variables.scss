@@ -1,0 +1,45 @@
+@import "functions";
+$colors: (
+        'primary': #1976D2,
+        'secondary': #26A69A,
+        'success': #21BA45,
+        'error': #C10015,
+        'info': #31CCEC,
+        'warning': #F2C037,
+        'white': #ffffff,
+        'grey': #6c7b80,
+        'black': #000000,
+        'dark': #1d1d1d,
+);
+
+$theme-light: (
+        'text-color-1': map-get($colors, 'black'),
+        'text-color-2': #3C3C3CA8,
+        'color-background': map-get($colors, 'white')
+);
+
+$theme-dark: (
+        'text-color-1': map-get($colors, 'white'),
+        'text-color-2': #EBEBEBA3,
+        'color-background': #181818
+);
+
+
+
+// Grid
+$spacer: 4px !default;
+$grid-gutter: $spacer * 6 !default;
+$grid-columns: 12 !default;
+$container-padding-x: calc($grid-gutter / 2) !default;
+
+$grid-breakpoints: () !default;
+$grid-breakpoints: map-deep-merge(
+                (
+                        'xs': 0,
+                        'sm': 600px,
+                        'md': 960px,
+                        'lg': 1280px - 16px,
+                        'xl': 1920px - 16px
+                ),
+                $grid-breakpoints
+);

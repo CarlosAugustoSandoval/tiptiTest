@@ -1,0 +1,9 @@
+[
+  {
+    "id": 1,
+    "name": "Admin",
+    "email": "admin@gmail.com",
+    "password": "12345",
+    "token": "$2y$10$7SgnEQ0o3FVpCYvBI6IRt.QvXZH65HdsGXnhxKW.l51gj9w/LjXQC"
+  }
+]
